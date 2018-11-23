@@ -4,18 +4,17 @@ import javax.inject.Singleton;
 
 import dagger.Module;
 import dagger.Provides;
+
+import com.vincenzopavano.discounttracker.data.remote.DiscountService;
 import com.vincenzopavano.discounttracker.data.remote.PokemonService;
 import retrofit2.Retrofit;
 
-/**
- * Created by shivam on 29/5/17.
- */
 @Module(includes = {NetworkModule.class})
 public class ApiModule {
 
     @Provides
     @Singleton
-    PokemonService providePokemonApi(Retrofit retrofit) {
-        return retrofit.create(PokemonService.class);
+    DiscountService provideDiscountService(Retrofit retrofit) {
+        return retrofit.create(DiscountService.class);
     }
 }

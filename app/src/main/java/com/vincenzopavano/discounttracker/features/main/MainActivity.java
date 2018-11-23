@@ -131,10 +131,12 @@ public class MainActivity extends BaseActivity implements MainMvpView, ErrorView
 
     @Override
     public void showError(Throwable error) {
-        pokemonRecycler.setVisibility(View.GONE);
-        swipeRefreshLayout.setVisibility(View.GONE);
-        errorView.setVisibility(View.VISIBLE);
-        Timber.e(error, "There was an error retrieving the pokemon");
+        if (error instanceof Exception) {
+            pokemonRecycler.setVisibility(View.GONE);
+            swipeRefreshLayout.setVisibility(View.GONE);
+            errorView.setVisibility(View.VISIBLE);
+            Timber.e(error, "There was an error retrieving the pokemon");
+        }
     }
 
     @Override

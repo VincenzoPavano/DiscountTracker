@@ -31,7 +31,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         discountList = Collections.emptyList();
     }
 
-    public void setDiscounts(List<Discount> discounts) {
+    void setDiscounts(List<Discount> discounts) {
         this.discountList = discounts;
         notifyDataSetChanged();
     }
@@ -40,15 +40,15 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(android.R.layout.simple_list_item_2, viewGroup, false);
+                .inflate(android.R.layout.simple_list_item_1, viewGroup, false);
         return new ViewHolder(view);
     }
 
     @Override
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Discount discount = this.discountList.get(i);
-        viewHolder.company.setText(discount.Company);
-        viewHolder.address.setText(discount.Address);
+        viewHolder.company.setText(discount.getCompany());
+        //viewHolder.address.setText(discount.Address);
         viewHolder.setDiscount(discount);
     }
 
@@ -57,7 +57,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         return discountList.size();
     }
 
-    public Observable<Discount> getDiscountClick() {
+    Observable<Discount> getDiscountClick() {
         return discountClickSubject;
     }
 
@@ -65,8 +65,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         @BindView(android.R.id.text1)
         TextView company;
 
-        @BindView(android.R.id.text2)
-        TextView address;
+//        @BindView(android.R.id.text2)
+//        TextView address;
 
         private Discount mDiscount;
 
@@ -76,7 +76,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
             itemView.setOnClickListener(v -> discountClickSubject.onNext(mDiscount));
         }
 
-        public void setDiscount(Discount discount) {
+        void setDiscount(Discount discount) {
             this.mDiscount = discount;
         }
     }

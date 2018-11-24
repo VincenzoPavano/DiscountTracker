@@ -22,11 +22,6 @@ public class DataManager {
     }
 
     public Single<List<Discount>> getDiscounts() {
-        return mDiscountService
-                .getDiscountList()
-                .toObservable()
-                //.flatMapIterable(namedResources -> namedResources.results)
-                //.map(namedResource -> namedResource.name)
-                .toList();
+        return mDiscountService.getDiscountList();
     }
 }

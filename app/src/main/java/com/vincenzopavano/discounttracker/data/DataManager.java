@@ -5,33 +5,23 @@ import java.util.List;
 import javax.inject.Inject;
 import javax.inject.Singleton;
 
+import com.vincenzopavano.discounttracker.data.model.Discount;
 import com.vincenzopavano.discounttracker.data.model.response.Pokemon;
+import com.vincenzopavano.discounttracker.data.remote.DiscountService;
 import com.vincenzopavano.discounttracker.data.remote.PokemonService;
 import io.reactivex.Single;
 
-/**
- * Created by shivam on 29/5/17.
- */
 @Singleton
 public class DataManager {
 
-    private PokemonService pokemonService;
+    private DiscountService mDiscountService;
 
     @Inject
-    public DataManager(PokemonService pokemonService) {
-        this.pokemonService = pokemonService;
+    public DataManager(DiscountService discountService) {
+        this.mDiscountService = discountService;
     }
 
-    public Single<List<String>> getPokemonList(int limit) {
-        return pokemonService
-                .getPokemonList(limit)
-                .toObservable()
-                .flatMapIterable(namedResources -> namedResources.results)
-                .map(namedResource -> namedResource.name)
-                .toList();
-    }
-
-    public Single<Pokemon> getPokemon(String name) {
-        return pokemonService.getPokemon(name);
+    public Single<List<Discount>> getDiscounts() {
+        return mDiscountService.getDiscountList();
     }
 }

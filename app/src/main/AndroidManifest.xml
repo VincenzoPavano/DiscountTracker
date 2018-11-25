@@ -28,6 +28,10 @@
                 <category android:name="android.intent.category.LAUNCHER" />
             </intent-filter>
         </activity>
+        <activity
+            android:name=".features.detail.DetailActivity"
+            android:label="@string/activity_detail"
+            android:parentActivityName=".features.main.MainActivity" />
 
         <!--
              The API key for Google Maps-based APIs is defined as a string resource.

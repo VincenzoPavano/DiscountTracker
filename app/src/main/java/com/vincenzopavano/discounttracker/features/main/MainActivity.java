@@ -1,5 +1,6 @@
 package com.vincenzopavano.discounttracker.features.main;
 
+import android.content.Intent;
 import android.os.Bundle;
 import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
@@ -9,6 +10,7 @@ import android.view.View;
 import com.vincenzopavano.discounttracker.R;
 import com.vincenzopavano.discounttracker.data.model.Discount;
 import com.vincenzopavano.discounttracker.features.base.BaseActivity;
+import com.vincenzopavano.discounttracker.features.detail.DetailActivity;
 import com.vincenzopavano.discounttracker.injection.component.ActivityComponent;
 
 import java.util.List;
@@ -17,7 +19,6 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
-import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
@@ -38,7 +39,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         super.onCreate(savedInstanceState);
 
         // Swipe layout customizations
-        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.primary);
+        swipeRefreshLayout.setProgressBackgroundColorSchemeResource(R.color.colorPrimary);
         swipeRefreshLayout.setColorSchemeResources(R.color.white);
         swipeRefreshLayout.setOnRefreshListener(() -> mainPresenter.getDiscounts());
 
@@ -57,7 +58,22 @@ public class MainActivity extends BaseActivity implements MainMvpView {
         Disposable disposable = mainAdapter
                 .getDiscountClick()
                 .subscribe(
-                        discount -> Timber.d("It worked"),//startActivity(),
+                        discount -> {
+                            Bundle extras = new Bundle();
+                            extras.putInt("id", discount.getId());
+                            extras.putInt("categoryId", discount.getCategoryId());
+                            extras.putString("company", discount.getCompany());
+                            extras.putString("description", discount.getDescription());
+                            extras.putString("address", discount.getAddress());
+                            extras.putString("website", discount.getWebsite());
+                            extras.putString("phone", discount.getPhone());
+                            extras.putDouble("latitude", discount.getLatitude());
+                            extras.putDouble("longitude", discount.getLongitude());
+
+                            Intent intent = new Intent(this, DetailActivity.class);
+                            intent.putExtras(extras);
+                            startActivity(intent);
+                        },
                         throwable -> {
                             //Timber.e(throwable, "Discount click failed");
                         });

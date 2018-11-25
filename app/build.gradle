@@ -18,7 +18,7 @@ android {
         defaultPublishConfig 'debug'
 
         applicationId "com.vincenzopavano.discounttracker"
-        minSdkVersion 19
+        minSdkVersion 22
         targetSdkVersion 28
         testInstrumentationRunner "com.vincenzopavano.discounttracker.runner.RxAndroidJUnitRunner"
         versionCode 1000

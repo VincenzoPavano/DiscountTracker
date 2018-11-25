@@ -3,8 +3,11 @@ package com.vincenzopavano.discounttracker.util;
 import android.content.Context;
 import android.net.ConnectivityManager;
 import android.net.NetworkInfo;
+import android.telephony.TelephonyManager;
 
 import retrofit2.HttpException;
+
+import static android.content.Context.TELEPHONY_SERVICE;
 
 public class NetworkUtil {
 
@@ -20,7 +23,12 @@ public class NetworkUtil {
     public static boolean isNetworkConnected(Context context) {
         ConnectivityManager cm =
                 (ConnectivityManager) context.getSystemService(Context.CONNECTIVITY_SERVICE);
-        NetworkInfo activeNetwork = cm.getActiveNetworkInfo();
+        NetworkInfo activeNetwork = cm != null ? cm.getActiveNetworkInfo() : null;
         return activeNetwork != null && activeNetwork.isConnectedOrConnecting();
+    }
+
+    public static boolean isTelephonyEnabled(Context context) {
+        TelephonyManager tm = (TelephonyManager) context.getSystemService(TELEPHONY_SERVICE);
+        return tm != null && tm.getSimState() == TelephonyManager.SIM_STATE_READY;
     }
 }

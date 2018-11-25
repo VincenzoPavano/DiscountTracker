@@ -1,8 +1,9 @@
 ext {
     versions = [
-            support         : "28.0.0",
+            support         : '28.0.0',
+            constraint      : '1.1.2',
             firebase        : '16.0.0',
-            okHttp          : "3.12.0",
+            okHttp          : '3.12.0',
             retrofit        : '2.3.0',
             dagger          : '2.19',
             butterKnife     : '8.8.1',
@@ -39,7 +40,8 @@ ext {
             design           : "com.android.support:design:$versions.support",
             recyclerView     : "com.android.support:recyclerview-v7:$versions.support",
             supportAnnotation: "com.android.support:support-annotations:$versions.support",
-            gridLayout       : "com.android.support:gridlayout-v7:$versions.support"
+            gridLayout       : "com.android.support:gridlayout-v7:$versions.support",
+            constraintLayout : "com.android.support.constraint:constraint-layout:$versions.constraint"
     ]
 
     rxJava = [

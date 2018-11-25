@@ -40,7 +40,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     @Override
     public ViewHolder onCreateViewHolder(@NonNull ViewGroup viewGroup, int i) {
         View view = LayoutInflater.from(viewGroup.getContext())
-                .inflate(android.R.layout.simple_list_item_1, viewGroup, false);
+                .inflate(android.R.layout.simple_list_item_2, viewGroup, false);
         return new ViewHolder(view);
     }
 
@@ -48,7 +48,7 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
     public void onBindViewHolder(@NonNull ViewHolder viewHolder, int i) {
         Discount discount = this.discountList.get(i);
         viewHolder.company.setText(discount.getCompany());
-        //viewHolder.address.setText(discount.Address);
+        viewHolder.address.setText(discount.getAddress());
         viewHolder.setDiscount(discount);
     }
 
@@ -65,8 +65,8 @@ public class MainAdapter extends RecyclerView.Adapter<MainAdapter.ViewHolder> {
         @BindView(android.R.id.text1)
         TextView company;
 
-//        @BindView(android.R.id.text2)
-//        TextView address;
+        @BindView(android.R.id.text2)
+        TextView address;
 
         private Discount mDiscount;
 

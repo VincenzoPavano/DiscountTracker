@@ -19,6 +19,7 @@ import javax.inject.Inject;
 
 import butterknife.BindView;
 import io.reactivex.disposables.Disposable;
+import timber.log.Timber;
 
 public class MainActivity extends BaseActivity implements MainMvpView {
 
@@ -75,7 +76,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
                             startActivity(intent);
                         },
                         throwable -> {
-                            //Timber.e(throwable, "Discount click failed");
+                            Timber.e(throwable, "Discount click failed");
                         });
         mainPresenter.addDisposable(disposable);
     }

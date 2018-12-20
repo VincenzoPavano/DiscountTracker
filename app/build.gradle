@@ -28,6 +28,9 @@ android {
         buildConfigField("String", "API_URL","\"http://www.vincenzopavano.com/api/\"")
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

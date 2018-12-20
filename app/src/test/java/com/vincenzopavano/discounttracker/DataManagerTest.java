@@ -22,9 +22,6 @@ import static org.mockito.ArgumentMatchers.anyInt;
 import static org.mockito.ArgumentMatchers.anyString;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by shivam on 29/5/17.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class DataManagerTest {
 

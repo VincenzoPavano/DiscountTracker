@@ -6,6 +6,7 @@ import android.support.v4.widget.SwipeRefreshLayout;
 import android.support.v7.widget.LinearLayoutManager;
 import android.support.v7.widget.RecyclerView;
 import android.view.View;
+import android.widget.Toast;
 
 import com.vincenzopavano.discounttracker.R;
 import com.vincenzopavano.discounttracker.data.model.Discount;
@@ -110,6 +111,7 @@ public class MainActivity extends BaseActivity implements MainMvpView {
 
     @Override
     public void showError(Throwable e) {
-
+        Toast.makeText(this, getText(R.string.error_discount), Toast.LENGTH_LONG).show();
+        Timber.e(e);
     }
 }

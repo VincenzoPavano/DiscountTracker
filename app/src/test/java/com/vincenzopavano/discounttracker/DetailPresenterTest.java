@@ -24,9 +24,6 @@ import static org.mockito.Mockito.times;
 import static org.mockito.Mockito.verify;
 import static org.mockito.Mockito.when;
 
-/**
- * Created by ravindra on 24/12/16.
- */
 @RunWith(MockitoJUnitRunner.class)
 public class DetailPresenterTest {
 

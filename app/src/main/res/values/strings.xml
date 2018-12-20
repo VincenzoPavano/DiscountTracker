@@ -5,6 +5,7 @@
 
     <!-- Activity -->
     <string name="activity_detail">Discount</string>
+    <string name="error_discount">There was an error loading Discounts. Please pull down to retry</string>
 
     <!-- Detail Activity -->
     <string name="detail_call">Call</string>

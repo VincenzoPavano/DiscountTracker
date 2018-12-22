@@ -4,6 +4,11 @@ import android.support.test.InstrumentationRegistry;
 import android.support.test.rule.ActivityTestRule;
 import android.support.test.runner.AndroidJUnit4;
 
+import com.vincenzopavano.discounttracker.common.TestComponentRule;
+import com.vincenzopavano.discounttracker.common.TestDataFactory;
+import com.vincenzopavano.discounttracker.data.model.Discount;
+import com.vincenzopavano.discounttracker.features.main.MainActivity;
+
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.rules.RuleChain;
@@ -12,22 +17,17 @@ import org.junit.runner.RunWith;
 
 import java.util.List;
 
-import com.vincenzopavano.discounttracker.common.TestComponentRule;
-import com.vincenzopavano.discounttracker.common.TestDataFactory;
-import com.vincenzopavano.discounttracker.data.model.response.NamedResource;
-import com.vincenzopavano.discounttracker.data.model.response.Pokemon;
-import com.vincenzopavano.discounttracker.features.main.MainActivity;
-import com.vincenzopavano.discounttracker.util.ErrorTestUtil;
 import io.reactivex.Single;
 
 import static android.support.test.espresso.Espresso.onView;
 import static android.support.test.espresso.action.ViewActions.click;
 import static android.support.test.espresso.assertion.ViewAssertions.matches;
+import static android.support.test.espresso.matcher.RootMatchers.withDecorView;
 import static android.support.test.espresso.matcher.ViewMatchers.isDisplayed;
 import static android.support.test.espresso.matcher.ViewMatchers.withId;
 import static android.support.test.espresso.matcher.ViewMatchers.withText;
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
+import static org.hamcrest.Matchers.is;
+import static org.hamcrest.Matchers.not;
 import static org.mockito.Mockito.when;
 
 @RunWith(AndroidJUnit4.class)
@@ -44,42 +44,49 @@ public class MainActivityTest {
     public TestRule chain = RuleChain.outerRule(componentRule).around(mainActivityTestRule);
 
     @Test
-    public void checkPokemonsDisplay() {
-        List<NamedResource> namedResourceList = TestDataFactory.makeNamedResourceList(5);
-        List<String> pokemonList = TestDataFactory.makePokemonNameList(namedResourceList);
-        stubDataManagerGetPokemonList(Single.just(pokemonList));
+    public void testDiscountsLoad() {
+        // Given
+        List<Discount> discountList = TestDataFactory.makeDiscountList();
+
+        // When
+        stubDataManager(Single.just(discountList));
         mainActivityTestRule.launchActivity(null);
 
-        for (NamedResource pokemonName : namedResourceList) {
-            onView(withText(pokemonName.name)).check(matches(isDisplayed()));
+        // Then
+        for (Discount discount : discountList) {
+            onView(withText(discount.getCompany())).check(matches(isDisplayed()));
+            onView(withText(discount.getAddress())).check(matches(isDisplayed()));
         }
     }
 
     @Test
-    public void clickingPokemonLaunchesDetailActivity() {
-        List<NamedResource> namedResourceList = TestDataFactory.makeNamedResourceList(5);
-        List<String> pokemonList = TestDataFactory.makePokemonNameList(namedResourceList);
-        stubDataManagerGetPokemonList(Single.just(pokemonList));
-        stubDataManagerGetPokemon(Single.just(TestDataFactory.makePokemon("id")));
+    public void testLaunchDetailActivity() {
+        // Given
+        List<Discount> discountList = TestDataFactory.makeDiscountList();
+
+        // When
+        stubDataManager(Single.just(discountList));
         mainActivityTestRule.launchActivity(null);
+        onView(withText(discountList.get(0).getCompany())).perform(click());
 
-        onView(withText(pokemonList.get(0))).perform(click());
-
-        onView(withId(R.id.image_pokemon)).check(matches(isDisplayed()));
+        // Then
+        onView(withId(R.id.text_company)).check(matches(withText(discountList.get(0).getCompany())));
+        onView(withId(R.id.text_description)).check(matches(withText(discountList.get(0).getDescription())));
     }
 
     @Test
     public void checkErrorViewDisplays() {
-        stubDataManagerGetPokemonList(Single.error(new RuntimeException()));
+        // Given
+        stubDataManager(Single.error(new RuntimeException()));
+
+        // When
         mainActivityTestRule.launchActivity(null);
-        ErrorTestUtil.checkErrorViewsDisplay();
+
+        // Then
+        onView(withText(R.string.error_discount)).inRoot(withDecorView(not(is(mainActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
-    public void stubDataManagerGetPokemonList(Single<List<String>> single) {
-        when(componentRule.getMockApiManager().getPokemonList(anyInt())).thenReturn(single);
-    }
-
-    public void stubDataManagerGetPokemon(Single<Pokemon> single) {
-        when(componentRule.getMockApiManager().getPokemon(anyString())).thenReturn(single);
+    private void stubDataManager(Single<List<Discount>> single) {
+        when(componentRule.getMockApiManager().getDiscounts()).thenReturn(single);
     }
 }

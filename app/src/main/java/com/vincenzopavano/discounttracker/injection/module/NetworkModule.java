@@ -20,9 +20,6 @@ import retrofit2.adapter.rxjava2.RxJava2CallAdapterFactory;
 import retrofit2.converter.gson.GsonConverterFactory;
 import timber.log.Timber;
 
-/**
- * Created by shivam on 29/5/17.
- */
 @Module
 public class NetworkModule {
 

@@ -18,7 +18,7 @@ android {
         defaultPublishConfig 'debug'
 
         applicationId "com.vincenzopavano.discounttracker"
-        minSdkVersion 19
+        minSdkVersion 22
         targetSdkVersion 28
         testInstrumentationRunner "com.vincenzopavano.discounttracker.runner.RxAndroidJUnitRunner"
         versionCode 1000
@@ -28,6 +28,9 @@ android {
         buildConfigField("String", "API_URL","\"http://www.vincenzopavano.com/api/\"")
     }
     buildTypes {
+        debug {
+            testCoverageEnabled = true
+        }
         release {
             minifyEnabled false
             proguardFiles getDefaultProguardFile('proguard-android.txt'), 'proguard-rules.pro'

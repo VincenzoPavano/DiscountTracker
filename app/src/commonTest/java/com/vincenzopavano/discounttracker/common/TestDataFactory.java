@@ -50,4 +50,8 @@ public class TestDataFactory {
 
         return discounts;
     }
+
+    public static Discount getDiscount() {
+        return makeDiscountList().get(0);
+    }
 }

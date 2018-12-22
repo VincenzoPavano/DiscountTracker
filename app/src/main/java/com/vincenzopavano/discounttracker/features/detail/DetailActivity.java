@@ -117,4 +117,8 @@ public class DetailActivity extends BaseActivity implements DetailMvpView {
     protected void detachPresenter() {
         detailPresenter.detachView();
     }
+
+    public void setDiscount(Discount discount) {
+        this.mDiscount = discount;
+    }
 }

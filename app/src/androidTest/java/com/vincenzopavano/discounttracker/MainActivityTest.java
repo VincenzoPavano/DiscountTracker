@@ -49,7 +49,7 @@ public class MainActivityTest {
         List<Discount> discountList = TestDataFactory.makeDiscountList();
 
         // When
-        stubDataManagerGetDiscountList(Single.just(discountList));
+        stubDataManager(Single.just(discountList));
         mainActivityTestRule.launchActivity(null);
 
         // Then
@@ -65,7 +65,7 @@ public class MainActivityTest {
         List<Discount> discountList = TestDataFactory.makeDiscountList();
 
         // When
-        stubDataManagerGetDiscountList(Single.just(discountList));
+        stubDataManager(Single.just(discountList));
         mainActivityTestRule.launchActivity(null);
         onView(withText(discountList.get(0).getCompany())).perform(click());
 
@@ -77,7 +77,7 @@ public class MainActivityTest {
     @Test
     public void checkErrorViewDisplays() {
         // Given
-        stubDataManagerGetDiscountList(Single.error(new RuntimeException()));
+        stubDataManager(Single.error(new RuntimeException()));
 
         // When
         mainActivityTestRule.launchActivity(null);
@@ -86,7 +86,7 @@ public class MainActivityTest {
         onView(withText(R.string.error_discount)).inRoot(withDecorView(not(is(mainActivityTestRule.getActivity().getWindow().getDecorView())))).check(matches(isDisplayed()));
     }
 
-    public void stubDataManagerGetDiscountList(Single<List<Discount>> single) {
+    private void stubDataManager(Single<List<Discount>> single) {
         when(componentRule.getMockApiManager().getDiscounts()).thenReturn(single);
     }
 }

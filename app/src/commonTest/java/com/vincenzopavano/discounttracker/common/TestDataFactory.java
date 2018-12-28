@@ -1,9 +1,6 @@
 package com.vincenzopavano.discounttracker.common;
 
 import com.vincenzopavano.discounttracker.data.model.Discount;
-import com.vincenzopavano.discounttracker.data.model.response.NamedResource;
-import com.vincenzopavano.discounttracker.data.model.response.Sprites;
-import com.vincenzopavano.discounttracker.data.model.response.Statistic;
 
 import java.util.ArrayList;
 import java.util.List;

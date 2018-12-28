@@ -1,10 +1,6 @@
 # Discount Tracker [![Build Status](https://travis-ci.org/androidstarters/android-starter.svg?branch=master)](https://travis-ci.org/androidstarters/android-starter)
 
-A basic, MVP-based Android project 
-<p align="center">
-  <img src="http://g.recordit.co/L5selg7aIv.gif" width="250">
-  <img src="http://g.recordit.co/xt4o5wTySc.gif">
-</p>
+A basic, MVP-based Android project to demonstrate popular tools and best practices used in modern Android development
 
 ## This project uses:
 - [RxJava2](https://github.com/ReactiveX/RxJava) and [RxAndroid](https://github.com/ReactiveX/RxAndroid)

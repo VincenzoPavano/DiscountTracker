@@ -1,26 +1,15 @@
 package com.vincenzopavano.discounttracker;
 
+import com.vincenzopavano.discounttracker.data.DataManager;
+import com.vincenzopavano.discounttracker.data.remote.DiscountService;
+import com.vincenzopavano.discounttracker.util.RxSchedulersOverrideRule;
+
 import org.junit.Before;
 import org.junit.Rule;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
-
-import java.util.List;
-
-import com.vincenzopavano.discounttracker.common.TestDataFactory;
-import com.vincenzopavano.discounttracker.data.DataManager;
-import com.vincenzopavano.discounttracker.data.model.response.NamedResource;
-import com.vincenzopavano.discounttracker.data.model.response.Pokemon;
-import com.vincenzopavano.discounttracker.data.model.response.PokemonListResponse;
-import com.vincenzopavano.discounttracker.data.remote.PokemonService;
-import com.vincenzopavano.discounttracker.util.RxSchedulersOverrideRule;
-import io.reactivex.Single;
-
-import static org.mockito.ArgumentMatchers.anyInt;
-import static org.mockito.ArgumentMatchers.anyString;
-import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataManagerTest {
@@ -29,37 +18,26 @@ public class DataManagerTest {
     public final RxSchedulersOverrideRule overrideSchedulersRule = new RxSchedulersOverrideRule();
 
     @Mock
-    private PokemonService mockPokemonService;
+    private DiscountService mockDiscountService;
 
     private DataManager dataManager;
 
     @Before
     public void setUp() {
-        dataManager = new DataManager(mockPokemonService);
+        dataManager = new DataManager(mockDiscountService);
     }
 
     @Test
-    public void getPokemonListCompletesAndEmitsPokemonList() {
-        List<NamedResource> namedResourceList = TestDataFactory.makeNamedResourceList(5);
-        PokemonListResponse pokemonListResponse = new PokemonListResponse();
-        pokemonListResponse.results = namedResourceList;
-
-        when(mockPokemonService.getPokemonList(anyInt()))
-                .thenReturn(Single.just(pokemonListResponse));
-
-        dataManager
-                .getPokemonList(10)
-                .test()
-                .assertComplete()
-                .assertValue(TestDataFactory.makePokemonNameList(namedResourceList));
-    }
-
-    @Test
-    public void getPokemonCompletesAndEmitsPokemon() {
-        String name = "charmander";
-        Pokemon pokemon = TestDataFactory.makePokemon(name);
-        when(mockPokemonService.getPokemon(anyString())).thenReturn(Single.just(pokemon));
-
-        dataManager.getPokemon(name).test().assertComplete().assertValue(pokemon);
+    public void testGetDiscountsAndEmit() {
+//        List<Discount> discountList = TestDataFactory.makeDiscountList();
+//
+//        when(mockDiscountService.getDiscountList())
+//                .thenReturn(Single.just(discountList));
+//
+//        dataManager
+//                .getDiscounts()
+//                .test()
+//                .assertComplete()
+//                .assertValue(discountList);
     }
 }

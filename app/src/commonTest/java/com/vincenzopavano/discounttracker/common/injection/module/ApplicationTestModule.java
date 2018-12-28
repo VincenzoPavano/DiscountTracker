@@ -8,7 +8,7 @@ import javax.inject.Singleton;
 import dagger.Module;
 import dagger.Provides;
 import com.vincenzopavano.discounttracker.data.DataManager;
-import com.vincenzopavano.discounttracker.data.remote.PokemonService;
+import com.vincenzopavano.discounttracker.data.remote.DiscountService;
 import com.vincenzopavano.discounttracker.injection.ApplicationContext;
 
 import static org.mockito.Mockito.mock;
@@ -48,7 +48,7 @@ public class ApplicationTestModule {
 
     @Provides
     @Singleton
-    PokemonService provideMvpBoilerplateService() {
-        return mock(PokemonService.class);
+    DiscountService provideMvpBoilerplateService() {
+        return mock(DiscountService.class);
     }
 }

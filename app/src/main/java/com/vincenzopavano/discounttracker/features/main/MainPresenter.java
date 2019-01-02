@@ -20,7 +20,7 @@ public class MainPresenter extends BasePresenter<MainMvpView> {
         super.attachView(mvpView);
     }
 
-    void getDiscounts() {
+    public void getDiscounts() {
         mDataManager
                 .getDiscounts()
                 .compose(SchedulerUtils.ioToMain())

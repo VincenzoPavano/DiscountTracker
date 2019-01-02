@@ -1,6 +1,8 @@
 package com.vincenzopavano.discounttracker;
 
+import com.vincenzopavano.discounttracker.common.TestDataFactory;
 import com.vincenzopavano.discounttracker.data.DataManager;
+import com.vincenzopavano.discounttracker.data.model.Discount;
 import com.vincenzopavano.discounttracker.data.remote.DiscountService;
 import com.vincenzopavano.discounttracker.util.RxSchedulersOverrideRule;
 
@@ -10,6 +12,12 @@ import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.mockito.Mock;
 import org.mockito.junit.MockitoJUnitRunner;
+
+import java.util.List;
+
+import io.reactivex.Single;
+
+import static org.mockito.Mockito.when;
 
 @RunWith(MockitoJUnitRunner.class)
 public class DataManagerTest {
@@ -29,15 +37,15 @@ public class DataManagerTest {
 
     @Test
     public void testGetDiscountsAndEmit() {
-//        List<Discount> discountList = TestDataFactory.makeDiscountList();
-//
-//        when(mockDiscountService.getDiscountList())
-//                .thenReturn(Single.just(discountList));
-//
-//        dataManager
-//                .getDiscounts()
-//                .test()
-//                .assertComplete()
-//                .assertValue(discountList);
+        List<Discount> discountList = TestDataFactory.makeDiscountList();
+
+        when(mockDiscountService.getDiscountList())
+                .thenReturn(Single.just(discountList));
+
+        dataManager
+                .getDiscounts()
+                .test()
+                .assertComplete()
+                .assertValue(discountList);
     }
 }
